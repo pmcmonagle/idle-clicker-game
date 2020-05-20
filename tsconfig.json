@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"noImplicitAny": true,
+		"removeComments": true,
+		"preserveConstEnums": true,
+		"sourceMap": true
+	},
+	"include": [
+		"src/**/*.ts",
+		"node_modules/phaser/typescript/p2.d.ts",
+		"node_modules/phaser/typescript/pixi.comments.d.ts",
+		"node_modules/phaser/typescript/phaser.comments.d.ts"
+	]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "AdventureCapitalist",
+  "version": "1.0.0",
+  "description": "A simple idle/clicking game written in TypeScript.",
+  "main": "dist/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify src/main.ts -p [ tsify --noImplicitAny ] > dist/main.js",
+    "dev": "budo src/main.ts:dist/main.js --live -d dist -- -p [ tsify --noImplicitAny ]"
+  },
+  "repository": {},
+  "author": "Paul McMonagle <mcmonagle.paul@gmail.com> (http://github.com/pmcmonagle)",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/browserify": "^12.0.33",
+    "browserify": "^15.2.0",
+    "budo": "^11.0.1",
+    "tsify": "^3.0.4",
+    "typescript": "^3.9.0"
+  },
+  "dependencies": {
+    "phaser-ce": "^2.15.0"
+  }
+}
