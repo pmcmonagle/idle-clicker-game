@@ -1,6 +1,7 @@
-import UICashFlow from '../ui/cashflow';
-import UIBusiness from '../ui/business';
-import { IBusiness, Businesses } from '../models/businesses';
+import UICashFlow from '../ui/uiCashflow';
+import UIBusiness from '../ui/uiBusiness';
+import Businesses from '../models/businesses';
+import Business from '../models/business';
 
 /**
  * A simple idle game. This game should:
@@ -19,14 +20,36 @@ export default class Gameplay extends Phaser.State {
 
         this.uiCashflow = this.game.add.existing(new UICashFlow(this.game, 0, 0));
         Businesses.ALL.forEach((business, i) => {
-            const yPosition: number = 500;
-            this.uiBusinesses.push(new UIBusiness(
-                this.game,
-                this.game.width / 2,
-                yPosition + UIBusiness.ELEMENT_HEIGHT * i,
-                business
-            ));
-            this.game.add.existing(this.uiBusinesses[this.uiBusinesses.length - 1]);
+            const yPosition: number = 500,
+                uiBusiness = new UIBusiness(
+                    this.game,
+                    this.game.width / 2,
+                    yPosition + UIBusiness.ELEMENT_HEIGHT * i,
+                    business
+                );
+            this.uiBusinesses.push(uiBusiness);
+            this.game.add.existing(uiBusiness);
+
+            uiBusiness.events.onRun.add(this.runBusiness, this);
+            uiBusiness.events.onBuy.add(this.buyBusiness, this);
         });
 	}
+
+    public update() {
+        // Update progress on each uiBusiness
+        this.uiBusinesses.forEach(ui => {
+            ui.showProgress(ui.model.progress);
+            ui.model.checkProgress();
+        });
+    }
+
+    public runBusiness(business: Business) {
+        business.run();
+    }
+    public buyBusiness(business: Business) {
+        // TODO
+    }
+    public buyManager(business: Business) {
+        // TODO
+    }
 }

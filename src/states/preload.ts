@@ -31,6 +31,7 @@ export default class Preload extends Phaser.State {
 	private preloadImages() {
 		this.load.image('progressBar', `${Preload.assetsUri.IMAGES}progressBar.png`);
 		this.load.image('progressBarBackground', `${Preload.assetsUri.IMAGES}progressBarBackground.png`);
+		this.load.image('buyButtonBackground', `${Preload.assetsUri.IMAGES}buyButtonBackground.png`);
 		this.load.image('cashflowBackground', `${Preload.assetsUri.IMAGES}cashflowBackground.png`);
 		this.load.image('businessBackground', `${Preload.assetsUri.IMAGES}businessBackground.png`);
 	}
