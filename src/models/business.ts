@@ -1,10 +1,12 @@
 import IPurchasable from './iPurchasable';
+import BusinessManager, { IManagerData } from './businessManager';
 
 export interface IBusinessData {
     name: string,                     // Readable name of the business.
     owned: number,                    // How many of this business the user has purchased.
     isRunning: boolean,               // Whether or not the business is currently making progress.
     isManaged: boolean,               // Whether or not the user has purchased a manager.
+    managerData: IManagerData,        // An object representing the manager of this business.
     startTime: number,                // Timestamp of when the business was last run.
     baseCost: number,                 // How much the first business will cost.
     costMultiplier: number,           // How much more each subsequent business will cost.
@@ -25,8 +27,11 @@ class BusinessEvents {
  */
 export default class Business implements IPurchasable {
     public events: BusinessEvents = new BusinessEvents();
+    public manager: BusinessManager;
 
-    constructor(public data: IBusinessData) {}
+    constructor(public data: IBusinessData) {
+        this.manager = new BusinessManager(data.managerData, this);
+    }
 
     // Return the calculated cost based on the number already owned.
     // Calculated as b * m^n

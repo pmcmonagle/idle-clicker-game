@@ -11,6 +11,7 @@ export default class Boot extends Phaser.State {
 	public create() {
 		this.game.input.maxPointers = 1;
 
+        this.game.stage.smoothed = true;
 		this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 		this.game.scale.pageAlignHorizontally = true;
 		this.game.scale.pageAlignVertically   = true;

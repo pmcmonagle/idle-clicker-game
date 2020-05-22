@@ -1,4 +1,4 @@
-import Business, { IBusinessData } from "./business";
+import Business, { IBusinessData } from './business';
 
 /**
  * A static registry of all businesses in the game.
@@ -6,6 +6,7 @@ import Business, { IBusinessData } from "./business";
 export default class Businesses {
     /**
      * Save and load all businesses from localStorage
+     * TODO this should be in a different file anyway
      */
     public static save() {
         // TODO localStorage
@@ -26,6 +27,7 @@ export default class Businesses {
         owned: 1,
         isRunning: false,
         isManaged: false,
+        managerData: { cost: 50, name: "Steve Yobs" },
         startTime: 0,
         baseCost: 10,
         costMultiplier: 1.5,
@@ -39,6 +41,7 @@ export default class Businesses {
         owned: 0,
         isRunning: false,
         isManaged: false,
+        managerData: { cost: 100, name: "Gill Bates" },
         startTime: 0,
         baseCost: 20,
         costMultiplier: 1.5,

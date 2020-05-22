@@ -1,3 +1,5 @@
+import UIHiringTab from '../ui/uiHiringTab';
+import UIResetTab from '../ui/uiResetTab';
 import UICashFlow from '../ui/uiCashflow';
 import UIBusiness from '../ui/uiBusiness';
 import Businesses from '../models/businesses';
@@ -9,11 +11,13 @@ import Cash from '../models/cash';
  * - Have businesses that earn money
  * - Clicking the business will cause it to generate money after a period of time
  * - With enough money you should be able to purchase new businesses
- * - Have managers that click the businesses for you
+ * - You can also hire managers that click the businesses for you
  */
 export default class Gameplay extends Phaser.State {
     private background: Phaser.Sprite;
     private uiCashflow: UICashFlow;
+    private uiResetTab: UIResetTab;
+    private uiHiringTab: UIHiringTab;
     private uiBusinesses: Array<UIBusiness> = [];
 
 	public create() {
@@ -45,6 +49,9 @@ export default class Gameplay extends Phaser.State {
                 uiBusiness.showAffordable(Cash.canAfford(business));
             });
         });
+
+        this.uiResetTab = this.game.add.existing(new UIResetTab(this.game));
+        this.uiHiringTab = this.game.add.existing(new UIHiringTab(this.game));
 	}
 
     public update() {

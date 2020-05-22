@@ -34,6 +34,10 @@ export default class Preload extends Phaser.State {
 		this.load.image('buyButtonBackground', `${Preload.assetsUri.IMAGES}buyButtonBackground.png`);
 		this.load.image('cashflowBackground', `${Preload.assetsUri.IMAGES}cashflowBackground.png`);
 		this.load.image('businessBackground', `${Preload.assetsUri.IMAGES}businessBackground.png`);
+		this.load.image('hiringTabBackground', `${Preload.assetsUri.IMAGES}hiringTabBackground.png`);
+		this.load.image('resetTabBackground', `${Preload.assetsUri.IMAGES}resetTabBackground.png`);
+		this.load.image('managerBackground', `${Preload.assetsUri.IMAGES}managerBackground.png`);
+		this.load.image('resetButton', `${Preload.assetsUri.IMAGES}resetButton.png`);
 	}
 
 	private preloadSounds() {
