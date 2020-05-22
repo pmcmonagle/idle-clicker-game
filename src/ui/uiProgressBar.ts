@@ -16,4 +16,10 @@ export default class UIProgressBar extends Phaser.Sprite {
     public showPercentage(p: number) {
         this.bar.scale.x = Phaser.Math.clamp(p, 0, 1);
     }
+
+    public showEnabled(isEnabled: boolean) {
+        this.background.tint = isEnabled
+            ? 0xFFFFFF
+            : 0x666666;
+    }
 }

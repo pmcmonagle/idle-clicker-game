@@ -29,9 +29,9 @@ export default class Businesses {
         startTime: 0,
         baseCost: 10,
         costMultiplier: 1.5,
-        baseCashPerClick: 1,
+        baseCashPerClick: 4,
         cashPerClickMultiplier: 1.3,
-        timePerClickMS: 1000
+        timePerClickMS: 100
     });
 
     public static GAMEDEV: Business = new Business({
@@ -42,7 +42,7 @@ export default class Businesses {
         startTime: 0,
         baseCost: 20,
         costMultiplier: 1.5,
-        baseCashPerClick: 2,
+        baseCashPerClick: 10,
         cashPerClickMultiplier: 1.3,
         timePerClickMS: 2000
     });

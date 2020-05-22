@@ -30,4 +30,8 @@ export default class UICashFlow extends Phaser.Sprite {
         this.cash.anchor.setTo(1, 0.5);
         this.addChild(this.cash);
     }
+
+    public showAmount(n: number) {
+        this.cash.text = `$${n}`;
+    }
 }

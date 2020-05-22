@@ -1,3 +1,5 @@
+import IPurchasable from './iPurchasable';
+
 export interface IBusinessData {
     name: string,                     // Readable name of the business.
     owned: number,                    // How many of this business the user has purchased.
@@ -11,13 +13,19 @@ export interface IBusinessData {
     timePerClickMS: number            // The amount of time in MS it takes for progress to go from 0 to 1.
 }
 
+class BusinessEvents {
+    public onPayoutReceived: Phaser.Signal = new Phaser.Signal();
+}
+
 /**
  * Data model for a single business. It should:
  * - serialize / deserialize itself for saving
  * - calculate progress towards a goal given timestamps
  * - calculate money earned when progress reaches 1
  */
-export default class Business {
+export default class Business implements IPurchasable {
+    public events: BusinessEvents = new BusinessEvents();
+
     constructor(public data: IBusinessData) {}
 
     // Return the calculated cost based on the number already owned.
@@ -47,7 +55,7 @@ export default class Business {
      * Run your business!
      */
     public run() {
-        if (this.data.isRunning)
+        if (this.data.isRunning || this.data.owned < 1)
             return;
         this.data.startTime = Date.now();
         this.data.isRunning = true;
@@ -57,8 +65,15 @@ export default class Business {
             this.data.startTime = Date.now();
             if (!this.data.isManaged)
                 this.data.isRunning = false;
-            // TODO Event?
+            this.events.onPayoutReceived.dispatch(this.payout);
         }
+    }
+
+    /**
+     * Purchase a new business!
+     */
+    public purchase() {
+        this.data.owned++;
     }
 
     /**

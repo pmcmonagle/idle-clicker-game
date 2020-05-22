@@ -1,6 +1,6 @@
-(window as any).PIXI   = require('phaser/build/custom/pixi');
-(window as any).p2     = require('phaser/build/custom/p2');
-(window as any).Phaser = require('phaser/build/custom/phaser-split');
+(window as any).PIXI   = require('phaser-ce/build/custom/pixi');
+(window as any).p2     = require('phaser-ce/build/custom/p2');
+(window as any).Phaser = require('phaser-ce/build/custom/phaser-split');
 
 import Boot from './states/boot';
 import Preload from './states/preload';

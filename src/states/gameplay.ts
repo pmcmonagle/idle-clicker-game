@@ -2,6 +2,7 @@ import UICashFlow from '../ui/uiCashflow';
 import UIBusiness from '../ui/uiBusiness';
 import Businesses from '../models/businesses';
 import Business from '../models/business';
+import Cash from '../models/cash';
 
 /**
  * A simple idle game. This game should:
@@ -19,6 +20,8 @@ export default class Gameplay extends Phaser.State {
         this.background = this.add.sprite(0, 0, 'background');
 
         this.uiCashflow = this.game.add.existing(new UICashFlow(this.game, 0, 0));
+        Cash.events.onCashAmountUpdated.add(this.uiCashflow.showAmount, this.uiCashflow);
+
         Businesses.ALL.forEach((business, i) => {
             const yPosition: number = 500,
                 uiBusiness = new UIBusiness(
@@ -30,8 +33,17 @@ export default class Gameplay extends Phaser.State {
             this.uiBusinesses.push(uiBusiness);
             this.game.add.existing(uiBusiness);
 
+            // Current state
+            uiBusiness.updateNumberOwned();
+            uiBusiness.showAffordable(Cash.canAfford(business));
+
+            // Events
             uiBusiness.events.onRun.add(this.runBusiness, this);
             uiBusiness.events.onBuy.add(this.buyBusiness, this);
+            business.events.onPayoutReceived.add(Cash.add, Cash);
+            Cash.events.onCashAmountUpdated.add(() => {
+                uiBusiness.showAffordable(Cash.canAfford(business));
+            });
         });
 	}
 
@@ -46,8 +58,12 @@ export default class Gameplay extends Phaser.State {
     public runBusiness(business: Business) {
         business.run();
     }
-    public buyBusiness(business: Business) {
-        // TODO
+    public buyBusiness(ui: UIBusiness, business: Business) {
+        if (!Cash.canAfford(business))
+            return;
+        Cash.subtract(business.cost);
+        business.purchase();
+        ui.updateNumberOwned();
     }
     public buyManager(business: Business) {
         // TODO

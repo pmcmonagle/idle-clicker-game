@@ -8,6 +8,7 @@ export default class UIBuyButton extends Phaser.Sprite {
     };
 
     public cost: Phaser.Text;
+    public isUsable: boolean;
 
     constructor(game: Phaser.Game, x: number, y: number, cost: number) {
         super(game, x, y, 'buyButtonBackground');
@@ -16,5 +17,9 @@ export default class UIBuyButton extends Phaser.Sprite {
         this.cost = this.game.add.text(UIBuyButton.PADDING.x, UIBuyButton.PADDING.y, `$${cost}`, UIBuyButton.COST_FONT);
         this.cost.anchor.setTo(1, 1);
         this.addChild(this.cost);
+    }
+
+    public showCost(n: number) {
+        this.cost.text = `$${n}`;
     }
 }
