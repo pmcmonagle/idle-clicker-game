@@ -8,6 +8,9 @@ import Businesses from '../models/businesses';
 export default class DataSaving {
     private static SAVE_ID: string = "adventureCapitaliseSaveData";
 
+    /**
+     * Save data to localStorage
+     */
     public static save() {
         let saveData: { [k: string]: string } = {};
 
@@ -24,11 +27,14 @@ export default class DataSaving {
         window.localStorage.setItem(DataSaving.SAVE_ID, JSON.stringify(saveData));
     }
 
-    public static load() {
+    /**
+     * Load saved data. Will return true if there was saved data to load, false otherwise.
+     */
+    public static load(): boolean {
         let saveData = JSON.parse(window.localStorage.getItem(DataSaving.SAVE_ID));
 
         if (saveData === null)
-            return;
+            return false;
 
         Cash.deserialize(saveData["Cash"]);
         Object.keys(saveData).forEach(key => {
@@ -36,6 +42,8 @@ export default class DataSaving {
                 return;
             (<any>Businesses)[key].deserialize(saveData[key]);
         });
+
+        return true;
     }
 
     /**

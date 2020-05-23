@@ -1,3 +1,4 @@
+import DataSaving from '../services/dataSaving';
 import IPurchasable from './iPurchasable';
 import ISerializable from './iSerializable';
 import BusinessManager, { IManagerData } from './businessManager';
@@ -53,6 +54,11 @@ export default class Business implements IPurchasable, ISerializable {
         return Math.floor(this.data.baseCashPerClick * Math.pow(this.data.cashPerClickMultiplier, Math.max(1, this.data.owned)));
     }
 
+    // Return cash earned for a specific degree of progress.
+    public get cumulativeCashEarned(): number {
+        return this.payout * Math.floor(this.progress);
+    }
+
     // Value representing the progress towards the next payout.
     // A value of 1 is a complete payout, but managed business can go higher
     // since they can run while the user is away.
@@ -75,23 +81,31 @@ export default class Business implements IPurchasable, ISerializable {
     }
     public checkProgress() {
         if (this.progress >= 1) {
-            this.events.onPayoutReceived.dispatch(this.payout * Math.floor(this.progress));
+            this.events.onPayoutReceived.dispatch(this.cumulativeCashEarned);
 
-            this.data.startTime = Date.now();
             if (!this.data.isManaged)
                 this.data.isRunning = false;
+            this.data.startTime = Date.now();
+
+            // Save after receiving a payout.
+            DataSaving.save();
         }
     }
 
     /**
      * Purchase a new business, or manager!
+     * Save after doing so.
      */
     public purchase() {
         this.data.owned++;
         this.events.onPurchased.dispatch();
+
+        DataSaving.save();
     }
     public purchaseManager() {
         this.data.isManaged = true;
+
+        DataSaving.save();
     }
 
     /**
