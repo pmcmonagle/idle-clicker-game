@@ -60,10 +60,6 @@ export default class Gameplay extends Phaser.State {
             ui.showProgress(ui.model.progress);
             ui.model.checkProgress();
         });
-
-        // This is fine as long we're doing it with localStorage.
-        // Consider only saving when things happen.
-        DataSaving.save();
     }
 
     public runBusiness(business: Business) {

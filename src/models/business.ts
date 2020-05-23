@@ -50,7 +50,7 @@ export default class Business implements IPurchasable, ISerializable {
     // Return the calculated payout based on the number already owned.
     // Calculated as b * m^n
     public get payout(): number {
-        return Math.floor(this.data.baseCashPerClick * Math.pow(this.data.cashPerClickMultiplier, this.data.owned));
+        return Math.floor(this.data.baseCashPerClick * Math.pow(this.data.cashPerClickMultiplier, Math.max(1, this.data.owned)));
     }
 
     // Value representing the progress towards the next payout.
@@ -75,10 +75,11 @@ export default class Business implements IPurchasable, ISerializable {
     }
     public checkProgress() {
         if (this.progress >= 1) {
+            this.events.onPayoutReceived.dispatch(this.payout * Math.floor(this.progress));
+
             this.data.startTime = Date.now();
             if (!this.data.isManaged)
                 this.data.isRunning = false;
-            this.events.onPayoutReceived.dispatch(this.payout);
         }
     }
 

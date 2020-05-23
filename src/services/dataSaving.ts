@@ -7,6 +7,7 @@ import Businesses from '../models/businesses';
  */
 export default class DataSaving {
     private static SAVE_ID: string = "adventureCapitaliseSaveData";
+
     public static save() {
         let saveData: { [k: string]: string } = {};
 
@@ -22,6 +23,7 @@ export default class DataSaving {
 
         window.localStorage.setItem(DataSaving.SAVE_ID, JSON.stringify(saveData));
     }
+
     public static load() {
         let saveData = JSON.parse(window.localStorage.getItem(DataSaving.SAVE_ID));
 
@@ -34,5 +36,13 @@ export default class DataSaving {
                 return;
             (<any>Businesses)[key].deserialize(saveData[key]);
         });
+    }
+
+    /**
+     * Clear out the saved data and reload the page.
+     */
+    public static reset() {
+        window.localStorage.removeItem(DataSaving.SAVE_ID);
+        window.location.reload();
     }
 }

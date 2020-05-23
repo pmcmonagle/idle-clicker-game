@@ -1,4 +1,5 @@
 import Business from './business';
+import DataSaving from '../services/dataSaving';
 import IPurchasable from './iPurchasable';
 
 class CashEvents {
@@ -17,11 +18,17 @@ export default class Cash {
     public static add(n: number) {
         Cash.amount += Math.max(0, n);
         this.events.onCashAmountUpdated.dispatch(Cash.amount);
+
+        // Save any time we add or subtract funds.
+        DataSaving.save();
     }
 
     public static subtract(n: number) {
         Cash.amount += Math.min(0, -n);
         this.events.onCashAmountUpdated.dispatch(Cash.amount);
+
+        // Save any time we add or subtract funds.
+        DataSaving.save();
     }
 
     public static canAfford(item: IPurchasable): boolean {
