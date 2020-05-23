@@ -1,3 +1,4 @@
+import Cash from '../models/cash';
 import BusinessManager from '../models/businessManager';
 
 export class UIBusinessManagerEvents extends Phaser.Events {
@@ -30,7 +31,7 @@ export default class UIBusinessManager extends Phaser.Sprite {
     };
     private static readonly COST_FONT: Object = {
         font: 'Impact, Charcoal, sans-serif',
-        fontSize: 72,
+        fontSize: 120,
         fill: '#AAA'
     };
 
@@ -47,14 +48,6 @@ export default class UIBusinessManager extends Phaser.Sprite {
         this.events = new UIBusinessManagerEvents(this);
         this.anchor.setTo(0.5, 0.5);
         this.model = model;
-
-        this.inputEnabled = true;
-        this.events.onInputUp.add(() => {
-            if (this.isUsable) {
-                this.events.onBuy.dispatch(this.model);
-                this.showPurchased();
-            }
-        });
 
         // Create and position UI Elements
         this.managerName = this.game.add.text(
@@ -82,9 +75,59 @@ export default class UIBusinessManager extends Phaser.Sprite {
         );
         this.cost.anchor.setTo(1, 0.5);
         this.addChild(this.cost);
+
+        // Setup events
+        this.inputEnabled = true;
+        this.events.onInputUp.add(() => {
+            if (this.isUsable) {
+                this.events.onBuy.dispatch(this, this.model);
+            }
+        });
+        Cash.events.onCashAmountUpdated.add(() => {
+            this.showAffordable(Cash.canAfford(this.model));
+        });
+        this.model.business.events.onPurchased.add(() => {
+            this.showAffordable(Cash.canAfford(this.model));
+        });
+
+        // Setup current state
+        this.showAffordable(Cash.canAfford(this.model));
     }
 
+    // When the business is already managed
     public showPurchased() {
-        // TODO
+        this.isUsable = false;
+        this.cost.tint = 0xFFFFFF;
+        this.managerName.tint = 0xFFFFFF;
+        this.businessName.tint = 0xFFFFFF;
+
+        this.cost.text = 'HIRED!';
+    }
+
+    // When we own 0 of the business.
+    public showUnavailable() {
+        this.isUsable = false;
+        this.cost.tint = 0x666666;
+        this.managerName.tint = 0x666666;
+        this.businessName.tint = 0x666666;
+    }
+
+    public showAffordable(isAffordable: boolean) {
+        if (this.model.business.data.isManaged)
+            return this.showPurchased();
+        if (this.model.business.data.owned < 1)
+            return this.showUnavailable();
+
+        if (isAffordable) {
+            this.isUsable = true;
+            this.cost.tint = 0x99FF99;
+            this.managerName.tint = 0xFFFFFF;
+            this.businessName.tint = 0xFFFFFF;
+        } else {
+            this.isUsable = false;
+            this.cost.tint = 0xFF9999;
+            this.managerName.tint = 0xFFFFFF;
+            this.businessName.tint = 0xFFFFFF;
+        }
     }
 }

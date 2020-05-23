@@ -1,3 +1,4 @@
+import Cash from '../models/cash';
 import Business from '../models/business';
 import UIProgressBar from './uiProgressBar';
 import UIBuyButton from './uiBuyButton';
@@ -112,6 +113,13 @@ export default class UIBusiness extends Phaser.Sprite {
             if (this.buyButton.isUsable)
                 this.events.onBuy.dispatch(this, this.model);
         });
+        Cash.events.onCashAmountUpdated.add(() => {
+            this.showAffordable(Cash.canAfford(this.model));
+        });
+
+        // Set current state
+        this.updateNumberOwned();
+        this.showAffordable(Cash.canAfford(this.model));
     }
 
     public showProgress(n: number) {

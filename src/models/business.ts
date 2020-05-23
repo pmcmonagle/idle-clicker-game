@@ -17,6 +17,7 @@ export interface IBusinessData {
 
 class BusinessEvents {
     public onPayoutReceived: Phaser.Signal = new Phaser.Signal();
+    public onPurchased: Phaser.Signal = new Phaser.Signal();
 }
 
 /**
@@ -79,6 +80,7 @@ export default class Business implements IPurchasable {
      */
     public purchase() {
         this.data.owned++;
+        this.events.onPurchased.dispatch();
     }
 
     /**

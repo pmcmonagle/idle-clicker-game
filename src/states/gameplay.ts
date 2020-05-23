@@ -1,7 +1,9 @@
+import UIBusinessManager from '../ui/uiBusinessManager';
 import UIHiringTab from '../ui/uiHiringTab';
 import UIResetTab from '../ui/uiResetTab';
 import UICashFlow from '../ui/uiCashflow';
 import UIBusiness from '../ui/uiBusiness';
+import BusinessManager from '../models/businessManager';
 import Businesses from '../models/businesses';
 import Business from '../models/business';
 import Cash from '../models/cash';
@@ -37,21 +39,15 @@ export default class Gameplay extends Phaser.State {
             this.uiBusinesses.push(uiBusiness);
             this.game.add.existing(uiBusiness);
 
-            // Current state
-            uiBusiness.updateNumberOwned();
-            uiBusiness.showAffordable(Cash.canAfford(business));
-
             // Events
             uiBusiness.events.onRun.add(this.runBusiness, this);
             uiBusiness.events.onBuy.add(this.buyBusiness, this);
             business.events.onPayoutReceived.add(Cash.add, Cash);
-            Cash.events.onCashAmountUpdated.add(() => {
-                uiBusiness.showAffordable(Cash.canAfford(business));
-            });
         });
 
         this.uiResetTab = this.game.add.existing(new UIResetTab(this.game));
         this.uiHiringTab = this.game.add.existing(new UIHiringTab(this.game));
+        this.uiHiringTab.events.onBuy.add(this.buyManager, this);
 	}
 
     public update() {
@@ -72,7 +68,13 @@ export default class Gameplay extends Phaser.State {
         business.purchase();
         ui.updateNumberOwned();
     }
-    public buyManager(business: Business) {
-        // TODO
+    public buyManager(ui: UIBusinessManager, manager: BusinessManager) {
+        if (!Cash.canAfford(manager))
+            return;
+        Cash.subtract(manager.cost);
+        manager.purchase();
+        ui.showPurchased();
+
+        manager.business.run();
     }
 }
