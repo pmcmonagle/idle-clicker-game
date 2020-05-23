@@ -4,17 +4,6 @@ import Business, { IBusinessData } from './business';
  * A static registry of all businesses in the game.
  */
 export default class Businesses {
-    /**
-     * Save and load all businesses from localStorage
-     * TODO this should be in a different file anyway
-     */
-    public static save() {
-        // TODO localStorage
-    }
-    public static load() {
-        // TODO localStorage
-    }
-
     public static get ALL(): Array<Business> {
         return [
             this.LEMONADE,

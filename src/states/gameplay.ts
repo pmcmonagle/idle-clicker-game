@@ -8,6 +8,8 @@ import Businesses from '../models/businesses';
 import Business from '../models/business';
 import Cash from '../models/cash';
 
+import DataSaving from '../services/dataSaving';
+
 /**
  * A simple idle game. This game should:
  * - Have businesses that earn money
@@ -23,9 +25,11 @@ export default class Gameplay extends Phaser.State {
     private uiBusinesses: Array<UIBusiness> = [];
 
 	public create() {
-        this.background = this.add.sprite(0, 0, 'background');
+        DataSaving.load();
 
+        this.background = this.add.sprite(0, 0, 'background');
         this.uiCashflow = this.game.add.existing(new UICashFlow(this.game, 0, 0));
+        this.uiCashflow.showAmount(Cash.amount);
         Cash.events.onCashAmountUpdated.add(this.uiCashflow.showAmount, this.uiCashflow);
 
         Businesses.ALL.forEach((business, i) => {
@@ -56,6 +60,10 @@ export default class Gameplay extends Phaser.State {
             ui.showProgress(ui.model.progress);
             ui.model.checkProgress();
         });
+
+        // This is fine as long we're doing it with localStorage.
+        // Consider only saving when things happen.
+        DataSaving.save();
     }
 
     public runBusiness(business: Business) {

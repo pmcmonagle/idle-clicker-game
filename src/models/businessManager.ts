@@ -14,15 +14,14 @@ export interface IManagerData {
  */
 export default class BusinessManager implements IPurchasable {
     constructor(
-        public data: IManagerData,
+        private data: IManagerData,
         public business: Business
     ) { }
 
-    public get cost(): number {
-        return this.data.cost;
-    }
+    public get cost(): number { return this.data.cost; }
+    public get name(): string { return this.data.name; }
 
     public purchase() {
-        this.business.data.isManaged = true;
+        this.business.purchaseManager();
     }
 }

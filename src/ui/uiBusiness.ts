@@ -61,7 +61,7 @@ export default class UIBusiness extends Phaser.Sprite {
         this.businessName = this.game.add.text(
             -this.background.width / 2 + UIBusiness.PADDING.x,
             -this.background.height / 2 + UIBusiness.PADDING.y,
-            model.data.name,
+            model.name,
             UIBusiness.NAME_FONT
         );
         this.addChild(this.businessName);
@@ -93,7 +93,7 @@ export default class UIBusiness extends Phaser.Sprite {
         this.numberOwned = this.game.add.text(
             this.buyButton.x - this.buyButton.width - UIBusiness.PADDING.x,
             this.buyButton.y + 10,
-            `owned\n${model.data.owned}`,
+            `owned\n${model.owned}`,
             UIBusiness.OWNED_FONT
         );
         this.numberOwned.anchor.setTo(1, 1);
@@ -139,11 +139,11 @@ export default class UIBusiness extends Phaser.Sprite {
     }
 
     public updateNumberOwned() {
-        this.numberOwned.text = `owned\n${this.model.data.owned}`;
+        this.numberOwned.text = `owned\n${this.model.owned}`;
         this.cashPerClick.text = `$${this.model.payout}`;
         this.buyButton.showCost(this.model.cost);
 
-        if (this.model.data.owned > 0) {
+        if (this.model.owned > 0) {
             this.background.inputEnabled = true;
             this.progressBar.showEnabled(true);
             this.cashPerClick.tint = 0xFFFFFF;

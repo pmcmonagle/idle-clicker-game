@@ -27,4 +27,12 @@ export default class Cash {
     public static canAfford(item: IPurchasable): boolean {
         return this.amount >= item.cost;
     }
+
+    public static serialize(): string {
+        return JSON.stringify({amount: Cash.amount});
+    }
+    public static deserialize(json: string): void {
+        let data = JSON.parse(json);
+        Cash.amount = data.amount;
+    }
 }

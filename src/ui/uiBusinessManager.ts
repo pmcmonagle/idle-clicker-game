@@ -53,7 +53,7 @@ export default class UIBusinessManager extends Phaser.Sprite {
         this.managerName = this.game.add.text(
             -this.width / 2 + UIBusinessManager.PADDING.x,
             -this.height / 2 + UIBusinessManager.PADDING.y,
-            model.data.name,
+            model.name,
             UIBusinessManager.NAME_FONT
         );
         this.addChild(this.managerName);
@@ -61,7 +61,7 @@ export default class UIBusinessManager extends Phaser.Sprite {
         this.businessName = this.game.add.text(
             -this.width / 2 + UIBusinessManager.PADDING.x,
             this.height / 2 - UIBusinessManager.PADDING.y,
-            `Runs ${model.business.data.name}`,
+            `Runs ${model.business.name}`,
             UIBusinessManager.BUSINESS_NAME_FONT
         );
         this.businessName.anchor.setTo(0, 1);
@@ -70,7 +70,7 @@ export default class UIBusinessManager extends Phaser.Sprite {
         this.cost = this.game.add.text(
             this.width / 2 - UIBusinessManager.PADDING.x,
             0,
-            `$${model.data.cost}`,
+            `$${model.cost}`,
             UIBusinessManager.COST_FONT
         );
         this.cost.anchor.setTo(1, 0.5);
@@ -113,9 +113,9 @@ export default class UIBusinessManager extends Phaser.Sprite {
     }
 
     public showAffordable(isAffordable: boolean) {
-        if (this.model.business.data.isManaged)
+        if (this.model.business.isManaged)
             return this.showPurchased();
-        if (this.model.business.data.owned < 1)
+        if (this.model.business.owned < 1)
             return this.showUnavailable();
 
         if (isAffordable) {

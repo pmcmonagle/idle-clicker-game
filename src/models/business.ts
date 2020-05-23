@@ -1,4 +1,5 @@
 import IPurchasable from './iPurchasable';
+import ISerializable from './iSerializable';
 import BusinessManager, { IManagerData } from './businessManager';
 
 export interface IBusinessData {
@@ -26,13 +27,19 @@ class BusinessEvents {
  * - calculate progress towards a goal given timestamps
  * - calculate money earned when progress reaches 1
  */
-export default class Business implements IPurchasable {
+export default class Business implements IPurchasable, ISerializable {
     public events: BusinessEvents = new BusinessEvents();
     public manager: BusinessManager;
 
-    constructor(public data: IBusinessData) {
+    constructor(private data: IBusinessData) {
         this.manager = new BusinessManager(data.managerData, this);
     }
+
+    // Some getters for readonly properties
+    public get name(): string { return this.data.name; }
+    public get owned(): number { return this.data.owned; }
+    public get isRunning(): boolean { return this.data.isRunning; }
+    public get isManaged(): boolean { return this.data.isManaged; }
 
     // Return the calculated cost based on the number already owned.
     // Calculated as b * m^n
@@ -76,11 +83,14 @@ export default class Business implements IPurchasable {
     }
 
     /**
-     * Purchase a new business!
+     * Purchase a new business, or manager!
      */
     public purchase() {
         this.data.owned++;
         this.events.onPurchased.dispatch();
+    }
+    public purchaseManager() {
+        this.data.isManaged = true;
     }
 
     /**
