@@ -78,6 +78,9 @@ export default class Business implements IPurchasable, ISerializable {
             return;
         this.data.startTime = Date.now();
         this.data.isRunning = true;
+
+        // Save after starting a run (so that we get paid out if we leave)
+        DataSaving.save();
     }
     public checkProgress() {
         if (this.progress >= 1) {
@@ -87,6 +90,11 @@ export default class Business implements IPurchasable, ISerializable {
                 this.data.isRunning = false;
             this.data.startTime = Date.now();
 
+            // TODO
+            // If our progress is not an integer, we should convert the remainder to
+            // time in MS and set the startTime back by that amount. This way, if we
+            // complete 2.5 payouts while away, we will resume that .5 of a payout!
+
             // Save after receiving a payout.
             DataSaving.save();
         }
@@ -94,17 +102,18 @@ export default class Business implements IPurchasable, ISerializable {
 
     /**
      * Purchase a new business, or manager!
-     * Save after doing so.
      */
     public purchase() {
         this.data.owned++;
         this.events.onPurchased.dispatch();
 
+        // Save our newly purchased business
         DataSaving.save();
     }
     public purchaseManager() {
         this.data.isManaged = true;
 
+        // Save our newly purchased manager
         DataSaving.save();
     }
 
