@@ -1,4 +1,6 @@
 # A Simple Idle Clicker Game!
+How to play: Tap the BUY button to purchase a business, and tap the business itself to run it! Reap the rewards!
+Gotten tired of clicking? Purchase a manager from the managers tab and have it run your business for you!
 
 ## Installation
 ### Requirements
