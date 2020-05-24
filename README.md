@@ -19,6 +19,17 @@ Gotten tired of clicking? Purchase a manager from the managers tab and have it r
  5. Upload the contents of the 'dist' directory to the web server of your choice
 
 ## Documentation
+### Methodology
+#### Problem Statement
+Create a simple idle game with the following features:
+- Buy and upgrade businesses
+- Make money from a business. (i.e. you click on a business and in a certain amount of time you get money – see web implementation above.)
+- Hire managers so that money is made automatically
+- When you close the game, next time you open it, you should see the money that your businesses made for you. (Businesses continue to make progress while you’re away.)
+#### Solution
+Gameplay for this game centers around a collection of businesses, and a single cash resource. Clicking a business causes it to enter a "running" state, and store a timestamp for when it entered that state. Each frame we check the current timestamp against the stored timestamp of a running business to determine its progress; once it has run for the specified amount of time, we collect a cash payout from the business and exit the running state. For a business that is managed, we reset the timestamp rather than exiting the running state - managed businesses run forever.
+
+Saving the state of the game is done via localStorage. Every user action, or cash payout will prompt a save to localStorage. Opening the game again some time later will load data from localStorage, and use the stored timestamps on each business to determine how much cash was made while the user was away (or how much progress was made if not enough time has passed for a payout). A potential server component for this game would require registration, and could save the user's progress to a document store database (eg. MongoDB) at regular intervals.
 ### Technology Stack
 | Technology | Description          |           |
 |------------|----------------------|-----------|
