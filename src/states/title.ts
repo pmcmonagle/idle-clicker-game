@@ -24,6 +24,10 @@ export default class Title extends Phaser.State {
 		fill: "#000"
 	};
 
+    private static readonly TITLE_TEXT: string = "Idle Clicker Game";
+    private static readonly SUBTITLE_TEXT: string = "Tap to Play!";
+    private static readonly CASH_EARNED_TEXT: string = "Cash earned while you were gone:\n";
+
     private title: Phaser.Text;
     private subTitle: Phaser.Text;
     private cashEarned: Phaser.Text;
@@ -34,13 +38,13 @@ export default class Title extends Phaser.State {
         this.title = this.game.add.text(
             this.game.width / 2,
             this.game.height / 2 - 100,
-            "Adventure Capitalist", Title.TITLE_FONT
+            Title.TITLE_TEXT, Title.TITLE_FONT
         );
         this.title.anchor.setTo(0.5, 0.5);
         this.subTitle = this.game.add.text(
             this.title.x,
             this.title.y + this.title.height + 20,
-            "Tap to Play!", Title.SUBTITLE_FONT
+            Title.SUBTITLE_TEXT, Title.SUBTITLE_FONT
         );
         this.subTitle.anchor.setTo(0.5, 0.5);
 
@@ -54,7 +58,7 @@ export default class Title extends Phaser.State {
             this.cashEarned = this.game.add.text(
                 this.subTitle.x,
                 this.subTitle.y + this.subTitle.height + 100,
-                `Cash earned while you were gone:\n$${earned}`,
+                `${Title.CASH_EARNED_TEXT}$${earned}`,
                 Title.CASH_EARNED_FONT
             );
             this.cashEarned.anchor.setTo(0.5, 0.5);

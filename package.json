@@ -1,5 +1,5 @@
 {
-  "name": "AdventureCapitalist",
+  "name": "IdleClickerGame",
   "version": "1.0.0",
   "description": "A simple idle/clicking game written in TypeScript.",
   "main": "dist/main.js",
