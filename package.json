@@ -12,10 +12,10 @@
   "author": "Paul McMonagle <mcmonagle.paul@gmail.com> (http://github.com/pmcmonagle)",
   "license": "MIT",
   "devDependencies": {
-    "@types/browserify": "^12.0.33",
-    "browserify": "^15.2.0",
-    "budo": "^11.0.1",
-    "tsify": "^3.0.4",
+    "@types/browserify": "^12.0.36",
+    "browserify": "^16.5.1",
+    "budo": "^11.6.3",
+    "tsify": "^4.0.1",
     "typescript": "^3.9.0"
   },
   "dependencies": {
