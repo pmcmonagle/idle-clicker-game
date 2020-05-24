@@ -80,6 +80,7 @@ export default class UIBusinessManager extends Phaser.Sprite {
         this.inputEnabled = true;
         this.events.onInputUp.add(() => {
             if (this.isUsable) {
+                this.game.sound.play('click');
                 this.events.onBuy.dispatch(this, this.model);
             }
         });

@@ -41,7 +41,8 @@ export default class Preload extends Phaser.State {
 	}
 
 	private preloadSounds() {
-		// this.load.audio('example', [`${Preload.assetsUri.SOUNDS}example.mp3`]);
+		this.load.audio('click', [`${Preload.assetsUri.SOUNDS}click.wav`]);
+		this.load.audio('cash', [`${Preload.assetsUri.SOUNDS}cash.mp3`]);
 	}
 
 	/**

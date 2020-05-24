@@ -103,6 +103,7 @@ export default class UIBusiness extends Phaser.Sprite {
         this.background.inputEnabled = true;
         this.background.input.useHandCursor = true;
         this.background.events.onInputUp.add(() => {
+            this.game.sound.play('click');
             this.events.onRun.dispatch(this.model);
         });
         this.buyButton.inputEnabled = true;
@@ -110,8 +111,10 @@ export default class UIBusiness extends Phaser.Sprite {
         this.buyButton.events.onInputUp.add(() => {
             // buyButton uses an isUsable flag instead of inputEnabled so that
             // it can continue to block input events even when disabled.
-            if (this.buyButton.isUsable)
+            if (this.buyButton.isUsable) {
+                this.game.sound.play('click');
                 this.events.onBuy.dispatch(this, this.model);
+            }
         });
         Cash.events.onCashAmountUpdated.add(() => {
             this.showAffordable(Cash.canAfford(this.model));

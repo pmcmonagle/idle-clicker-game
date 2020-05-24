@@ -32,6 +32,7 @@ export default class UICashFlow extends Phaser.Sprite {
     }
 
     public showAmount(n: number) {
+        this.game.sound.play('cash');
         this.cash.text = `$${n}`;
     }
 }
