@@ -10,7 +10,7 @@ Gotten tired of clicking? Purchase a manager from the managers tab and have it r
  2. Navigate to the newly cloned repository using your terminal of choice
  3. Run `npm i`
  4. Run `npm run dev`
- 5. Access the running dev server at `192.168.1.80:9966`
+ 5. Access the running dev server at the IP Address and Port displayed in the terminal
 ### Running a Build
  1. Clone this repository the location of your choice
  2. Navigate to the newly cloned repository using your terminal of choice
