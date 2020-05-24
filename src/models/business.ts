@@ -86,14 +86,15 @@ export default class Business implements IPurchasable, ISerializable {
         if (this.progress >= 1) {
             this.events.onPayoutReceived.dispatch(this.cumulativeCashEarned);
 
+            // If our progress is not an integer, we should convert the remainder to
+            // time in MS so that if we return after earning, say, 2.5 progress, that
+            // extra 0.5 doesn't disappear.
+            const extraProgress = this.progress % 1,
+                extraMS = this.data.timePerClickMS * extraProgress;
+
             if (!this.data.isManaged)
                 this.data.isRunning = false;
-            this.data.startTime = Date.now();
-
-            // TODO
-            // If our progress is not an integer, we should convert the remainder to
-            // time in MS and set the startTime back by that amount. This way, if we
-            // complete 2.5 payouts while away, we will resume that .5 of a payout!
+            this.data.startTime = Date.now() - extraMS;
 
             // Save after receiving a payout.
             DataSaving.save();
