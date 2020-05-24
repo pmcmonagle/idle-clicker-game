@@ -35,8 +35,8 @@ controllers, connected the views with data models via events.
 project
 |   README.md
 |   LICENSE
-|	package.json  | Defines project dependencies
-|	tsconfig.json | Defines typescript compilation rules
+|    package.json  | Defines project dependencies
+|    tsconfig.json | Defines typescript compilation rules
 |
 ( Built code and assets go in the dist folder )
 +---dist
@@ -53,17 +53,17 @@ project
     |   main.ts | Program entry point. This file instatiates the Phaser game instance.
     |
     +---models
-		| business.ts        | This is a model for a single business.
-		| businesses.ts      | This is a static registry of all businesses in the game, and is where you should look if you want to add or modify a business.
-		| businessManager.ts | This is a model for a manager who runs a business for you in the game.
-		| cash.ts            | This model represents the amount of cash owned by the user.
+        | business.ts        | This is a model for a single business.
+        | businesses.ts      | This is a static registry of all businesses in the game, and is where you should look if you want to add or modify a business.
+        | businessManager.ts | This is a model for a manager who runs a business for you in the game.
+        | cash.ts            | This model represents the amount of cash owned by the user.
     +---services
-		| dataSaving.ts | This service saves and loads data from localStorage.
+        | dataSaving.ts | This service saves and loads data from localStorage.
     +---states
-		| boot.ts     | The bootstate sets up project dimensions and Phaser configuration.
-		| gameplay.ts | The bulk of the action happens in the gameplay state.
-		| preload.ts  | The preload state preloads all assets (images and sounds)
-		| title.ts    | The title state displays a simple welcome message, and shows you how much cash you've earned on returning.
+        | boot.ts     | The bootstate sets up project dimensions and Phaser configuration.
+        | gameplay.ts | The bulk of the action happens in the gameplay state.
+        | preload.ts  | The preload state preloads all assets (images and sounds)
+        | title.ts    | The title state displays a simple welcome message, and shows you how much cash you've earned on returning.
     +---ui
-		| (ui components are hopefully self-explanatory... they are the visual representation of the thing they are named after)
+        | (ui components are hopefully self-explanatory... they are the visual representation of the thing they are named after)
 ``` 
