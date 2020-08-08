@@ -2,20 +2,20 @@
  * Handles the preloading of all assets.
  */
 export default class Preload extends Phaser.State {
-	private static readonly assetsUri: {IMAGES: string, SOUNDS: string} = {
-		IMAGES: "assets/images/",
-		SOUNDS: "assets/sounds/"
-	};
+    private static readonly assetsUri: { IMAGES: string, SOUNDS: string } = {
+        IMAGES: "assets/images/",
+        SOUNDS: "assets/sounds/"
+    };
     private background: Phaser.Sprite;
-	private preloadSprite: Phaser.Sprite;
+    private preloadSprite: Phaser.Sprite;
 
 	/**
 	 * Set up the preload graphics, and begin preloading.
 	 */
-	public preload() {
+    public preload() {
         this.background = this.add.sprite(0, 0, 'background');
-		this.preloadSprite = this.add.sprite(
-            this.game.width  / 2,
+        this.preloadSprite = this.add.sprite(
+            this.game.width / 2,
             this.game.height / 2,
             'preloadSprite'
         );
@@ -26,29 +26,29 @@ export default class Preload extends Phaser.State {
 
         this.preloadImages();
         this.preloadSounds();
-	}
+    }
 
-	private preloadImages() {
-		this.load.image('progressBar', `${Preload.assetsUri.IMAGES}progressBar.png`);
-		this.load.image('progressBarBackground', `${Preload.assetsUri.IMAGES}progressBarBackground.png`);
-		this.load.image('buyButtonBackground', `${Preload.assetsUri.IMAGES}buyButtonBackground.png`);
-		this.load.image('cashflowBackground', `${Preload.assetsUri.IMAGES}cashflowBackground.png`);
-		this.load.image('businessBackground', `${Preload.assetsUri.IMAGES}businessBackground.png`);
-		this.load.image('hiringTabBackground', `${Preload.assetsUri.IMAGES}hiringTabBackground.png`);
-		this.load.image('resetTabBackground', `${Preload.assetsUri.IMAGES}resetTabBackground.png`);
-		this.load.image('managerBackground', `${Preload.assetsUri.IMAGES}managerBackground.png`);
-		this.load.image('resetButton', `${Preload.assetsUri.IMAGES}resetButton.png`);
-	}
+    private preloadImages() {
+        this.load.image('progressBar', `${Preload.assetsUri.IMAGES}progressBar.png`);
+        this.load.image('progressBarBackground', `${Preload.assetsUri.IMAGES}progressBarBackground.png`);
+        this.load.image('buyButtonBackground', `${Preload.assetsUri.IMAGES}buyButtonBackground.png`);
+        this.load.image('cashflowBackground', `${Preload.assetsUri.IMAGES}cashflowBackground.png`);
+        this.load.image('businessBackground', `${Preload.assetsUri.IMAGES}businessBackground.png`);
+        this.load.image('hiringTabBackground', `${Preload.assetsUri.IMAGES}hiringTabBackground.png`);
+        this.load.image('resetTabBackground', `${Preload.assetsUri.IMAGES}resetTabBackground.png`);
+        this.load.image('managerBackground', `${Preload.assetsUri.IMAGES}managerBackground.png`);
+        this.load.image('resetButton', `${Preload.assetsUri.IMAGES}resetButton.png`);
+    }
 
-	private preloadSounds() {
-		this.load.audio('click', [`${Preload.assetsUri.SOUNDS}click.wav`]);
-		this.load.audio('cash', [`${Preload.assetsUri.SOUNDS}cash.mp3`]);
-	}
+    private preloadSounds() {
+        this.load.audio('click', [`${Preload.assetsUri.SOUNDS}click.wav`]);
+        this.load.audio('cash', [`${Preload.assetsUri.SOUNDS}cash.mp3`]);
+    }
 
 	/**
 	 * We're done preloading - time to play the game!
 	 */
-	private beginGame() {
-		this.game.state.start('title');
-	}
+    private beginGame() {
+        this.game.state.start('title');
+    }
 }

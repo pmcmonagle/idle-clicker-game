@@ -24,7 +24,7 @@ export default class Gameplay extends Phaser.State {
     private uiHiringTab: UIHiringTab;
     private uiBusinesses: Array<UIBusiness> = [];
 
-	public create() {
+    public create() {
         DataSaving.load();
 
         this.background = this.add.sprite(0, 0, 'background');
@@ -52,7 +52,7 @@ export default class Gameplay extends Phaser.State {
         this.uiResetTab = this.game.add.existing(new UIResetTab(this.game));
         this.uiHiringTab = this.game.add.existing(new UIHiringTab(this.game));
         this.uiHiringTab.events.onBuy.add(this.buyManager, this);
-	}
+    }
 
     public update() {
         // Update progress on each uiBusiness

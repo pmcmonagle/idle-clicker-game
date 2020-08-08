@@ -7,22 +7,22 @@ import Business from '../models/business';
  * tell us what was earned while we were gone.
  */
 export default class Title extends Phaser.State {
-	private static readonly TITLE_FONT: Object = {
+    private static readonly TITLE_FONT: Object = {
         font: 'Impact, Charcoal, sans-serif',
-		fontSize: 80,
-		fill: "#000000"
-	};
-	private static readonly SUBTITLE_FONT: Object = {
+        fontSize: 80,
+        fill: "#000000"
+    };
+    private static readonly SUBTITLE_FONT: Object = {
         font: 'Impact, Charcoal, sans-serif',
-		fontSize: 60,
-		fill: "#333"
-	};
-	private static readonly CASH_EARNED_FONT: Object = {
+        fontSize: 60,
+        fill: "#333"
+    };
+    private static readonly CASH_EARNED_FONT: Object = {
         font: 'Impact, Charcoal, sans-serif',
-		fontSize: 60,
+        fontSize: 60,
         align: 'center',
-		fill: "#000"
-	};
+        fill: "#000"
+    };
 
     private static readonly TITLE_TEXT: string = "Idle Clicker Game";
     private static readonly SUBTITLE_TEXT: string = "Tap to Play!";
@@ -33,7 +33,7 @@ export default class Title extends Phaser.State {
     private cashEarned: Phaser.Text;
     private background: Phaser.Sprite;
 
-	public create() {
+    public create() {
         this.background = this.add.sprite(0, 0, 'background');
         this.title = this.game.add.text(
             this.game.width / 2,
@@ -63,7 +63,7 @@ export default class Title extends Phaser.State {
             );
             this.cashEarned.anchor.setTo(0.5, 0.5);
         }
-	}
+    }
 
     private beginGame() {
         this.game.state.start('gameplay');
